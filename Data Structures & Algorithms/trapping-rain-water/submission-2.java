@@ -1,0 +1,27 @@
+class Solution {
+    public int trap(int[] height) {
+        int n = height.length;
+        int[] leftMax = new int[n];
+        leftMax[0] = height[0];
+        int[] rightMax = new int[n];
+        rightMax[n - 1] = height[n - 1];
+
+        for (int i = 1; i < n; ++i) {
+            leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+            rightMax[n - i - 1] = Math.max(rightMax[n - i], height[n - i - 1]);
+        }
+
+        int area = 0;
+
+        for (int i = 0; i < n; ++i) {
+            area += Math.min(leftMax[i], rightMax[i]) - height[i];
+        }
+
+        return area;
+    }
+
+    /*
+        0   1   2   3   4   5   6   7   8   9
+        0   2   0   3   1   0   1   3   2   1
+    */
+}
